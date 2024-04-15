@@ -1,3 +1,17 @@
+drisoCLASS: CLASS for Dark radiation isocurvature (Based on CLASS)
+==================================================================
+
+Authors:
+CLASS: Julien Lesgourgues and Thomas Tram
+drisoCLASS: Subhajit Ghosh, Soubhik Kumar, Yuhsin Tsai
+
+with major inputs from Peizhi Du and Jae Hyeok Chang.
+
+CLASS code for Dark radiation (DR) isocurvature for free-streaming DR (w/ decoupling & recoupling) and fluid DR
+
+
+
+
 CLASS: Cosmic Linear Anisotropy Solving System  {#mainpage}
 ==============================================
 
