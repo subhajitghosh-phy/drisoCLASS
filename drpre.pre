@@ -1,0 +1,6 @@
+start_sources_at_tau_c_over_tau_h = 0.006
+start_small_k_at_tau_c_over_tau_h = 0.00004
+start_large_k_at_tau_h_over_tau_k = 0.005
+
+tol_perturb_integration=1.e-6
+perturb_sampling_stepsize=0.01
