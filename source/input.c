@@ -628,8 +628,8 @@ int input_read_parameters(
   double k2=0.;
   double prr1=0.;
   double prr2=0.;
-  double log10_Geff; //SG
-  double log10_pii1, log10_pii2, log10_pri1, log10_prr1, log10_prr2; //SG
+  double log10_Geff; //modified
+  double log10_pii1, log10_pii2, log10_pri1, log10_prr1, log10_prr2; //modified
   double pii1=0.;
   double pii2=0.;
   double pri1=0.;
@@ -858,21 +858,21 @@ int input_read_parameters(
              errmsg);
   class_call(parser_read_double(pfc,"log10_N_idr",&param4,&flag4,errmsg),
              errmsg,
-             errmsg);//SG
+             errmsg);//modified
   class_test(class_at_least_two_of_three(flag1,flag2,flag3),
              errmsg,
              "In input file, you can only enter one of N_idr, N_dg or xi_idr, choose one");
   class_test(class_at_least_two_of_three(flag1,flag2,flag4),
              errmsg,
-             "In input file, you can only enter one of N_idr, N_dg or log10_N_idr, choose one");//SG
+             "In input file, you can only enter one of N_idr, N_dg or log10_N_idr, choose one");
   class_test(class_at_least_two_of_three(flag1,flag3,flag4),
              errmsg,
-             "In input file, you can only enter one of N_idr, xi_idr or log10_N_idr, choose one");//SG
+             "In input file, you can only enter one of N_idr, xi_idr or log10_N_idr, choose one");
 
   if (flag1 == _TRUE_) {
     pba->T_idr = pow(param1/stat_f_idr*(7./8.)/pow(11./4.,(4./3.)),(1./4.)) * pba->T_cmb;
     if (input_verbose > 1)
-      printf("You passed N_idr = N_dg = %e, this is equivalent to xi_idr = %e in the ETHOS notation. \n", param1, pba->T_idr/pba->T_cmb);//SG: Fixed typo param1 instead of param2
+      printf("You passed N_idr = N_dg = %e, this is equivalent to xi_idr = %e in the ETHOS notation. \n", param1, pba->T_idr/pba->T_cmb);
   }
   else if (flag2 == _TRUE_) {
     pba->T_idr = pow(param2/stat_f_idr*(7./8.)/pow(11./4.,(4./3.)),(1./4.)) * pba->T_cmb;
@@ -887,13 +887,13 @@ int input_read_parameters(
   if (flag4 == _TRUE_) {
     pba->T_idr = pow(pow(10.0,param4)/stat_f_idr*(7./8.)/pow(11./4.,(4./3.)),(1./4.)) * pba->T_cmb;
     if (input_verbose > 1)
-      printf("You passed log10_N_idr = %e i.e, N_dg= N_idr = %e, this is equivalent to xi_idr = %e in the ETHOS notation. \n", param4,pow(10.0,param4), pba->T_idr/pba->T_cmb);//SG
+      printf("You passed log10_N_idr = %e i.e, N_dg= N_idr = %e, this is equivalent to xi_idr = %e in the ETHOS notation. \n", param4,pow(10.0,param4), pba->T_idr/pba->T_cmb);
   }
   pba->Omega0_idr = stat_f_idr*pow(pba->T_idr/pba->T_cmb,4.)*pba->Omega0_g;
 
   Omega_tot += pba->Omega0_idr;
 
-  //SG.
+  
 
   class_call(parser_read_string(pfc,"idr_nature",&string1,&flag1,errmsg),
                  errmsg,
@@ -908,7 +908,7 @@ int input_read_parameters(
         }
       }
 //       if (input_verbose >= 1)
-//       printf("idr nature :  %d \n",ppt->idr_nature ); //SG
+//       printf("idr nature :  %d \n",ppt->idr_nature );
 
 if (input_verbose >= 1) {
       
@@ -973,7 +973,7 @@ class_call(parser_read_string(pfc,"dr_coupling",&string1,&flag1,errmsg),
     }
       
 
-//SG..
+
 
   /** - Omega_0_cdm (CDM) */
   class_call(parser_read_double(pfc,"Omega_cdm",&param1,&flag1,errmsg),
