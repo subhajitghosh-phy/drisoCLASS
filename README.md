@@ -1,4 +1,4 @@
-drisoCLASS: CLASS for Dark radiation isocurvature (Based on CLASS)
+drisoCLASS: CLASS for Dark Radiation Isocurvature (Based on CLASS)
 ==================================================================
 
 Authors:
@@ -9,7 +9,7 @@ drisoCLASS: Subhajit Ghosh, Soubhik Kumar, Peizhi Du, and Jae Hyeok Chang.
 
 Authors of the original version: Subhajit Ghosh, Soubhik Kumar, and Yuhsin Tsai.
 
-CLASS code for Dark radiation (DR) isocurvature for free-streaming DR (w/ options for decoupling & recoupling interactions) and coupled (fluid-like) DR.
+CLASS code for dark radiation (DR) isocurvature for free-streaming DR (with options for decoupling & recoupling interactions) and coupled (fluid-like) DR.
 
 Using drisoCLASS code
 ---------------------
@@ -18,7 +18,7 @@ You can use drisoCLASS freely provided you cite the following works:
 1. CLASS papers (see below)
 2. [Cosmological Constraints on Secluded Dark Radiation](): The code is used and made public in this publication.
 3. [Free-streaming and coupled dark radiation isocurvature perturbations: constraints and application to the Hubble tension](https://arxiv.org/abs/2107.09076): The initial conditions for free-streming DR (FDR) and coupled DR (CDR) were first derived in this paper. An older version of this code was used for this publication.
-4. [Confronting interacting dark radiation scenarios with cosmological data](https://arxiv.org/abs/2212.13264): Boltzmann Equations for Decoupling and Recoupling DR are implemeted following this reference. 
+4. [Confronting interacting dark radiation scenarios with cosmological data](https://arxiv.org/abs/2212.13264): Boltzmann Equations for decoupling and recoupling DR are implemeted following this reference. 
 
 <ins>Operational details:</ins>
 
@@ -26,7 +26,7 @@ You can use drisoCLASS freely provided you cite the following works:
 2. The intial conditions for FDR or CDR are chosen automatically depending on 'idr_nature' input.
 3. Both decoupling and recoupling DR interaction take the input 'log10_Geff'. For decoupling, it's definition is the same as in Ref. 2 above. For recoupling, the coupling in Ref. 2 is related as 'log10_lambda_eff = (log10_Geff - 25.56)/2'.   
 
-Please consult the driso.ipynb for detailed usage of the code.
+For detailed instructions on how to use the code, please refer to the notebook driso.ipynb.
 
 CLASS: Cosmic Linear Anisotropy Solving System  {#mainpage}
 ==============================================
