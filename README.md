@@ -5,9 +5,9 @@ Authors:
 
 CLASS: Julien Lesgourgues and Thomas Tram
 
-drisoCLASS: Subhajit Ghosh, Soubhik Kumar, Yuhsin Tsai
+drisoCLASS: Subhajit Ghosh, Soubhik Kumar, Peizhi Du and Jae Hyeok Chang.
 
-with major inputs from Peizhi Du and Jae Hyeok Chang.
+Authors of the original version: Subhajit Ghosh, Soubhik Kumar and Yuhsin Tsai.
 
 CLASS code for Dark radiation (DR) isocurvature for free-streaming DR (w/ options for decoupling & recoupling interactions) and coupled (fluid-like) DR.
 
