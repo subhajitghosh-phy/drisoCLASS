@@ -383,7 +383,7 @@ int primordial_init(
 
     class_test(ppt->has_bi == _TRUE_ || ppt->has_cdi == _TRUE_ || ppt->has_nid == _TRUE_ || ppt->has_niv == _TRUE_ || ppt->has_drid == _TRUE_,
                ppm->error_message,
-               "external Pk module cannot work if you ask for isocurvature modes (but that could be implemented easily in the future!)");//SG-mod
+               "external Pk module cannot work if you ask for isocurvature modes (but that could be implemented easily in the future!)");
 
     if (ppm->primordial_verbose > 0)
       printf(" (Pk calculated externally)\n");
@@ -759,7 +759,6 @@ int primordial_analytic_spectrum_init(
           one_running = ppm->alpha_nid;
         }
 
-        //SG.
 
         if ((ppt->has_drid == _TRUE_) && (index_ic1 == ppt->index_ic_drid)) {
           one_amplitude = ppm->A_s*ppm->f_drid*ppm->f_drid;
@@ -767,7 +766,6 @@ int primordial_analytic_spectrum_init(
           one_running = ppm->alpha_drid;
         }
 
-        //SG..
 
         if ((ppt->has_niv == _TRUE_) && (index_ic1 == ppt->index_ic_niv)) {
           one_amplitude = ppm->A_s*ppm->f_niv*ppm->f_niv;
@@ -829,8 +827,6 @@ int primordial_analytic_spectrum_init(
             one_running = ppm->alpha_ad_nid;
           }
 
-          //SG.
-
           if ((ppt->has_ad == _TRUE_) && (ppt->has_drid == _TRUE_) &&
               (((index_ic1 == ppt->index_ic_ad) && (index_ic2 == ppt->index_ic_drid)) ||
                ((index_ic2 == ppt->index_ic_ad) && (index_ic1 == ppt->index_ic_drid)))) {
@@ -839,7 +835,6 @@ int primordial_analytic_spectrum_init(
             one_running = ppm->alpha_ad_drid;
           }
 
-          //SG..
 
           if ((ppt->has_ad == _TRUE_) && (ppt->has_niv == _TRUE_) &&
               (((index_ic1 == ppt->index_ic_ad) && (index_ic2 == ppt->index_ic_niv)) ||
@@ -865,8 +860,6 @@ int primordial_analytic_spectrum_init(
             one_running = ppm->alpha_bi_nid;
           }
 
-          //SG.
-
           if ((ppt->has_bi == _TRUE_) && (ppt->has_drid == _TRUE_) &&
               (((index_ic1 == ppt->index_ic_bi) && (index_ic2 == ppt->index_ic_drid)) ||
                ((index_ic2 == ppt->index_ic_bi) && (index_ic1 == ppt->index_ic_drid)))) {
@@ -874,8 +867,6 @@ int primordial_analytic_spectrum_init(
             one_tilt = ppm->n_bi_drid;
             one_running = ppm->alpha_bi_drid;
           }
-
-          //SG..
 
           if ((ppt->has_bi == _TRUE_) && (ppt->has_niv == _TRUE_) &&
               (((index_ic1 == ppt->index_ic_bi) && (index_ic2 == ppt->index_ic_niv)) ||
@@ -893,8 +884,6 @@ int primordial_analytic_spectrum_init(
             one_running = ppm->alpha_cdi_nid;
           }
 
-          //SG.
-
           if ((ppt->has_cdi == _TRUE_) && (ppt->has_drid == _TRUE_) &&
               (((index_ic1 == ppt->index_ic_cdi) && (index_ic2 == ppt->index_ic_drid)) ||
                ((index_ic2 == ppt->index_ic_cdi) && (index_ic1 == ppt->index_ic_drid)))) {
@@ -902,8 +891,6 @@ int primordial_analytic_spectrum_init(
             one_tilt = ppm->n_cdi_drid;
             one_running = ppm->alpha_cdi_drid;
           }
-
-          //SG..
 
           if ((ppt->has_cdi == _TRUE_) && (ppt->has_niv == _TRUE_) &&
               (((index_ic1 == ppt->index_ic_cdi) && (index_ic2 == ppt->index_ic_niv)) ||
@@ -921,8 +908,6 @@ int primordial_analytic_spectrum_init(
             one_running = ppm->alpha_nid_niv;
           }
 
-          //SG.
-
           if ((ppt->has_drid == _TRUE_) && (ppt->has_niv == _TRUE_) &&
               (((index_ic1 == ppt->index_ic_drid) && (index_ic2 == ppt->index_ic_niv)) ||
                ((index_ic2 == ppt->index_ic_drid) && (index_ic1 == ppt->index_ic_niv)))) {
@@ -931,9 +916,6 @@ int primordial_analytic_spectrum_init(
             one_running = ppm->alpha_drid_niv;
           }
 
-          //SG..
-
-          //SG.
 
           if ((ppt->has_drid == _TRUE_) && (ppt->has_nid == _TRUE_) &&
               (((index_ic1 == ppt->index_ic_drid) && (index_ic2 == ppt->index_ic_nid)) ||
@@ -942,8 +924,6 @@ int primordial_analytic_spectrum_init(
             one_tilt = ppm->n_drid_nid;
             one_running = ppm->alpha_drid_nid;
           }
-
-          //SG..
 
         }
 

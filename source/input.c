@@ -1042,7 +1042,7 @@ class_call(parser_read_string(pfc,"dr_coupling",&string1,&flag1,errmsg),
 
     class_test(pba->Omega0_idm_dr > 0.0,
                errmsg,
-               "The model does not have interaction between DM and DR. Also, associated interaction parameters will NOT be read.");//SG
+               "The model does not have interaction between DM and DR. Also, associated interaction parameters will NOT be read.");
 
     class_test(pba->Omega0_idr == 0.0,
                errmsg,
@@ -1102,7 +1102,7 @@ class_call(parser_read_string(pfc,"dr_coupling",&string1,&flag1,errmsg),
           ppt->idr_nature = idr_fluid;
         }
       }
-      printf("Test, ppt->idr_nature = %s \n",ppt->idr_nature );//SG
+      printf("Test, ppt->idr_nature = %s \n",ppt->idr_nature );
     }
 
     class_read_double_one_of_two("m_idm","m_dm",pth->m_idm);
@@ -1222,7 +1222,7 @@ class_call(parser_read_string(pfc,"dr_coupling",&string1,&flag1,errmsg),
     class_read_list_of_doubles_or_default("Maximum q",pba->ncdm_qmax,15,N_ncdm);
 
     /* Read temperatures: */
-    //SG - Changes to pass T_ncdm_all as a common values for all ncdm species: T_ncdm[n]=T_ncdm_all//
+    //Changes to pass T_ncdm_all as a common values for all ncdm species: T_ncdm[n]=T_ncdm_all//
     class_read_double("T_ncdm_all", pba->T_ncdm_all);
     if ((flag1 == _TRUE_) && (pba->T_ncdm_all > 0)){
         class_alloc(pba->T_ncdm,N_ncdm*sizeof(int),errmsg);
@@ -1934,11 +1934,11 @@ class_call(parser_read_string(pfc,"dr_coupling",&string1,&flag1,errmsg),
           ppt->has_niv=_TRUE_;
 
         if ((strstr(string1,"drid") != NULL) || (strstr(string1,"DRID") != NULL))
-          ppt->has_drid=_TRUE_; //SG
+          ppt->has_drid=_TRUE_; 
 
         class_test(ppt->has_ad==_FALSE_ && ppt->has_bi ==_FALSE_ && ppt->has_cdi ==_FALSE_ && ppt->has_nid ==_FALSE_ && ppt->has_niv ==_FALSE_ && ppt->has_drid ==_FALSE_,
                    errmsg,
-                   "You wrote: ic='%s'. Could not identify any of the initial conditions ('ad', 'bi', 'cdi', 'nid', 'niv','drid') in such input",string1);//SG-mod
+                   "You wrote: ic='%s'. Could not identify any of the initial conditions ('ad', 'bi', 'cdi', 'nid', 'niv','drid') in such input",string1);
 
       }
     }
@@ -2038,16 +2038,16 @@ class_call(parser_read_string(pfc,"dr_coupling",&string1,&flag1,errmsg),
        if ((ppt->has_bi == _TRUE_) ||
           (ppt->has_cdi == _TRUE_) ||
           (ppt->has_nid == _TRUE_) ||
-          (ppt->has_niv == _TRUE_)) { //SG - Next block is for drid
+          (ppt->has_niv == _TRUE_)) { //Next block is for drid
        class_read_double("P_{II}^1",pii1);
-       if (input_verbose > 1) printf("You passed pii1 = %e \n" , pii1);//SG
+       if (input_verbose > 1) printf("You passed pii1 = %e \n" , pii1);
        class_read_double("P_{II}^2",pii2);
-       if (input_verbose > 1) printf("You passed pii2 = %e \n" , pii2);//SG
+       if (input_verbose > 1) printf("You passed pii2 = %e \n" , pii2);
        class_read_double("P_{RI}^1",pri1);
-       if (input_verbose > 1) printf("You passed pri1 = %e \n" , pri1);//SG
+       if (input_verbose > 1) printf("You passed pri1 = %e \n" , pri1);
        }
-       //class_read_double("|P_{RI}^2|",pri2);//SG - class default - no need now//
-       if ((ppt->has_drid == _TRUE_) && (pba->Omega0_idr > 0.0)){//SG
+       //class_read_double("|P_{RI}^2|",pri2);//class default - no need now//
+       if ((ppt->has_drid == _TRUE_) && (pba->Omega0_idr > 0.0)){
        //--------------------------------------pii1------------------------------------------//
        class_call(parser_read_double(pfc,"P_{II}^1",&param1,&flag1,errmsg),errmsg,errmsg);
        class_call(parser_read_double(pfc,"phP_{II}^1",&param2,&flag2,errmsg),errmsg,errmsg);
@@ -2066,7 +2066,7 @@ class_call(parser_read_string(pfc,"dr_coupling",&string1,&flag1,errmsg),
        if (flag2 == _TRUE_) {
           pii1 = param2/pow((pba->Omega0_idr/7.*8./pow(4./11.,4./3.)/pba->Omega0_g),2);
           if (input_verbose > 1) printf("You passed (N_idr)^2*pii1 = %e i.e, pii1 = %e with N_idr = %e \n" , param2, param2/pow((pba->Omega0_idr/7.*8./pow(4./11.,4./3.)/pba->Omega0_g),2), (pba->Omega0_idr/7.*8./pow(4./11.,4./3.)/pba->Omega0_g) );
-       pri1 = pow(10.0, log10_pri1); //SG
+       pri1 = pow(10.0, log10_pri1);
           }
 
         //--------------------------------------pii2------------------------------------------//
@@ -2111,9 +2111,9 @@ class_call(parser_read_string(pfc,"dr_coupling",&string1,&flag1,errmsg),
         }
        
 
-	pri2 = pri1*sqrt((prr2*pii2)/(prr1*pii1)); //SG - Planck 2015 isocurvature notation//
+	pri2 = pri1*sqrt((prr2*pii2)/(prr1*pii1)); //Planck 2015 isocurvature notation//
 
-	//SG - pri2 is not treated as a modulas -- be extra careful about it//
+	//pri2 is not treated as a modulus -- be extra careful about it//
 
         class_test(pii1 <= 0.,
                    errmsg,
@@ -2123,8 +2123,8 @@ class_call(parser_read_string(pfc,"dr_coupling",&string1,&flag1,errmsg),
                    "since you request iso modes, you should have P_{ii}^2 positive or eventually null");
        // class_test(pri2 < 0.,//
        //            errmsg,//
-       //            "by definition, you should have |P_{ri}^2| positive or eventually null");//SG
-       //SG - no need for this test anymore//
+       //            "by definition, you should have |P_{ri}^2| positive or eventually null");
+       //no need for this test anymore//
 
         flag1 = _FALSE_;
 
@@ -2153,26 +2153,25 @@ class_call(parser_read_string(pfc,"dr_coupling",&string1,&flag1,errmsg),
         /* general case, but if pii2 or pri2=0 the code interprets it
            as a request for n_iso=n_ad or n_cor=0 respectively */
         else {
-          if (pii2 == 0.) { //SG - This is CLASS default. Probably fine for us. CHECK//
+          if (pii2 == 0.) {
             n_iso = ppm->n_s;
           }
           else {
             class_test((pii1==0.) || (pii2 == 0.) || (pii1*pii2<0.),errmsg,"should NEVER happen");
             n_iso = log(pii2/pii1)/log(k2/k1)+1.;
           }
-          //class_test(pri1==0,errmsg,"the general isocurvature case requires a non-zero P_{RI}^1");//SG - no need anymore//
-          if (pri2 == 0.) {//SG - This also happens when pri1 = 0//
+          //class_test(pri1==0,errmsg,"the general isocurvature case requires a non-zero P_{RI}^1");//no need anymore//
+          if (pri2 == 0.) {//This also happens when pri1 = 0//
             n_cor = 0.;
           }
           else {
-            //class_test((pri1==0.) || (pri2 <= 0.) || (pii1*pii2<0),errmsg,"should NEVER happen");//SG - no need anymore//
-            //n_cor = log(pri2/fabs(pri1))/log(k2/k1)-0.5*(ppm->n_s+n_iso-2.);//SG - no need for abs()//
-	     class_test((pii1*pii2<0),errmsg,"should NEVER happen");//SG
-	     n_cor = log(pri2/pri1)/log(k2/k1)-0.5*(ppm->n_s+n_iso-2.);//SG
+            //class_test((pri1==0.) || (pri2 <= 0.) || (pii1*pii2<0),errmsg,"should NEVER happen");//no need anymore//
+            //n_cor = log(pri2/fabs(pri1))/log(k2/k1)-0.5*(ppm->n_s+n_iso-2.);//no need for abs()//
+	     class_test((pii1*pii2<0),errmsg,"should NEVER happen");
+	     n_cor = log(pri2/pri1)/log(k2/k1)-0.5*(ppm->n_s+n_iso-2.);
           }
           class_test((pii1*prr1<=0.),errmsg,"should NEVER happen");
           class_test(fabs(pri1)/sqrt(pii1*prr1)>1,errmsg,"too large ad-iso cross-correlation in k1");
-          //class_test(fabs(pri1)/sqrt(pii1*prr1)*exp(n_cor*log(k2/k1))>1,errmsg,"too large ad-iso cross-correlation in k2");//SG - if this earlier condition is violated this is automatically violated//
           c_cor = -pri1/sqrt(pii1*prr1)*exp(n_cor*log(ppm->k_pivot/k1));
         }
         /* formula for f_iso valid in all cases */
@@ -2209,7 +2208,6 @@ class_call(parser_read_string(pfc,"dr_coupling",&string1,&flag1,errmsg),
         ppm->n_ad_niv = n_cor;
       }
 
-      //SG.
 
       if (ppt->has_drid == _TRUE_) {
         ppm->f_drid = f_iso;
@@ -2218,7 +2216,6 @@ class_call(parser_read_string(pfc,"dr_coupling",&string1,&flag1,errmsg),
         ppm->n_ad_drid = n_cor;
       }
 
-      //SG..
     }
 
     ppm->primordial_spec_type = analytic_Pk;
@@ -2274,8 +2271,6 @@ class_call(parser_read_string(pfc,"dr_coupling",&string1,&flag1,errmsg),
 
       }
 
-      //SG.
-
       if (ppt->has_drid == _TRUE_) {
 
         class_read_double("f_drid",ppm->f_drid);
@@ -2283,8 +2278,6 @@ class_call(parser_read_string(pfc,"dr_coupling",&string1,&flag1,errmsg),
         class_read_double("alpha_drid",ppm->alpha_drid);
 
       }
-
-      //SG..
 
       if (ppt->has_niv == _TRUE_) {
 
@@ -2312,7 +2305,6 @@ class_call(parser_read_string(pfc,"dr_coupling",&string1,&flag1,errmsg),
         class_read_double_one_of_two("alpha_ad_nid","alpha_nid_ad",ppm->alpha_ad_nid);
       }
 
-      //SG.
 
       if ((ppt->has_ad == _TRUE_) && (ppt->has_drid == _TRUE_)) {
         class_read_double_one_of_two("c_ad_drid","c_drid_ad",ppm->c_ad_drid);
@@ -2320,7 +2312,6 @@ class_call(parser_read_string(pfc,"dr_coupling",&string1,&flag1,errmsg),
         class_read_double_one_of_two("alpha_ad_drid","alpha_drid_ad",ppm->alpha_ad_drid);
       }
 
-      //SG..
 
       if ((ppt->has_ad == _TRUE_) && (ppt->has_niv == _TRUE_)) {
         class_read_double_one_of_two("c_ad_niv","c_niv_ad",ppm->c_ad_niv);
@@ -2340,15 +2331,12 @@ class_call(parser_read_string(pfc,"dr_coupling",&string1,&flag1,errmsg),
         class_read_double_one_of_two("alpha_bi_nid","alpha_nid_bi",ppm->alpha_bi_nid);
       }
 
-      //SG.
 
       if ((ppt->has_bi == _TRUE_) && (ppt->has_drid == _TRUE_)) {
         class_read_double_one_of_two("c_bi_drid","c_drid_bi",ppm->c_bi_drid);
         class_read_double_one_of_two("n_bi_drid","n_drid_bi",ppm->n_bi_drid);
         class_read_double_one_of_two("alpha_bi_drid","alpha_drid_bi",ppm->alpha_bi_drid);
       }
-
-      //SG..
 
       if ((ppt->has_bi == _TRUE_) && (ppt->has_niv == _TRUE_)) {
         class_read_double_one_of_two("c_bi_niv","c_niv_bi",ppm->c_bi_niv);
@@ -2362,15 +2350,11 @@ class_call(parser_read_string(pfc,"dr_coupling",&string1,&flag1,errmsg),
         class_read_double_one_of_two("alpha_cdi_nid","alpha_nid_cdi",ppm->alpha_cdi_nid);
       }
 
-      //SG.
-
       if ((ppt->has_cdi == _TRUE_) && (ppt->has_drid == _TRUE_)) {
         class_read_double_one_of_two("c_cdi_drid","c_drid_cdi",ppm->c_cdi_drid);
         class_read_double_one_of_two("n_cdi_drid","n_drid_cdi",ppm->n_cdi_drid);
         class_read_double_one_of_two("alpha_cdi_drid","alpha_drid_cdi",ppm->alpha_cdi_drid);
       }
-
-      //SG..
 
       if ((ppt->has_cdi == _TRUE_) && (ppt->has_niv == _TRUE_)) {
         class_read_double_one_of_two("c_cdi_niv","c_niv_cdi",ppm->c_cdi_niv);
@@ -2384,25 +2368,17 @@ class_call(parser_read_string(pfc,"dr_coupling",&string1,&flag1,errmsg),
         class_read_double_one_of_two("alpha_nid_niv","alpha_niv_nid",ppm->alpha_nid_niv);
       }
 
-      //SG.
-
       if ((ppt->has_drid == _TRUE_) && (ppt->has_niv == _TRUE_)) {
         class_read_double_one_of_two("c_drid_niv","c_niv_drid",ppm->c_drid_niv);
         class_read_double_one_of_two("n_drid_niv","n_niv_drid",ppm->n_drid_niv);
         class_read_double_one_of_two("alpha_drid_niv","alpha_niv_drid",ppm->alpha_drid_niv);
       }
 
-      //SG..
-
-      //SG.
-
       if ((ppt->has_drid == _TRUE_) && (ppt->has_nid == _TRUE_)) {
         class_read_double_one_of_two("c_drid_nid","c_nid_drid",ppm->c_drid_nid);
         class_read_double_one_of_two("n_drid_nid","n_nid_drid",ppm->n_drid_nid);
         class_read_double_one_of_two("alpha_drid_nid","alpha_nid_drid",ppm->alpha_drid_nid);
       }
-
-      //SG..
 
     }
 
@@ -2690,7 +2666,7 @@ class_call(parser_read_string(pfc,"dr_coupling",&string1,&flag1,errmsg),
 
     class_test(ppt->has_bi == _TRUE_ || ppt->has_cdi == _TRUE_ || ppt->has_nid == _TRUE_ || ppt->has_niv == _TRUE_ || ppt->has_drid == _TRUE_,
                errmsg,
-               "inflationary module cannot work if you ask for isocurvature modes"); //SG-mod
+               "inflationary module cannot work if you ask for isocurvature modes");
   }
 
   /** (e) parameters for final spectra */
@@ -3443,8 +3419,7 @@ int input_default_params(
   pba->H0 = pba->h * 1.e5 / _c_;
   pba->T_cmb = 2.7255;
   pba->Omega0_g = (4.*sigma_B/_c_*pow(pba->T_cmb,4.)) / (3.*_c_*_c_*1.e10*pba->h*pba->h/_Mpc_over_m_/_Mpc_over_m_/8./_PI_/_G_);
-  //pba->Omega0_ur = 3.046*7./8.*pow(4./11.,4./3.)*pba->Omega0_g;//SG
-  pba->Omega0_ur = 0.0;//SG
+  pba->Omega0_ur = 0.0;
   pba->Geff =0;
   pba->dr_coupling == decoup;
   pba->Omega0_idr = 0.0;
@@ -3562,7 +3537,7 @@ int input_default_params(
   ppt->has_cdi=_FALSE_;
   ppt->has_nid=_FALSE_;
   ppt->has_niv=_FALSE_;
-  ppt->has_drid=_FALSE_; //SG
+  ppt->has_drid=_FALSE_;
 
   ppt->has_perturbed_recombination=_FALSE_;
   ppt->tensor_method = tm_massless_approximation;
@@ -3581,7 +3556,7 @@ int input_default_params(
 
   ppt->gauge=synchronous;
 
-  ppt->idr_nature=idr_fluid;//SG//
+  ppt->idr_nature=idr_fluid;
   ppt->has_Nbody_gauge_transfers = _FALSE_;
 
   ppt->k_output_values_num=0;
@@ -3613,11 +3588,11 @@ int input_default_params(
   ppm->f_nid = 1.;
   ppm->n_nid = 1.;
   ppm->alpha_nid = 0.;
-  //SG.
+
   ppm->f_drid = 1.;
   ppm->n_drid = 1.;
   ppm->alpha_drid = 0.;
-  //SG..
+
   ppm->f_niv = 1.;
   ppm->n_niv = 1.;
   ppm->alpha_niv = 0.;
@@ -3630,11 +3605,9 @@ int input_default_params(
   ppm->c_ad_nid = 0.;
   ppm->n_ad_nid = 0.;
   ppm->alpha_ad_nid = 0.;
-  //SG.
   ppm->c_ad_drid = 0.;
   ppm->n_ad_drid = 0.;
   ppm->alpha_ad_drid = 0.;
-  //SG..
   ppm->c_ad_niv = 0.;
   ppm->n_ad_niv = 0.;
   ppm->alpha_ad_niv = 0.;
@@ -3644,38 +3617,30 @@ int input_default_params(
   ppm->c_bi_nid = 0.;
   ppm->n_bi_nid = 0.;
   ppm->alpha_bi_nid = 0.;
-  //SG.
   ppm->c_bi_drid = 0.;
   ppm->n_bi_drid = 0.;
   ppm->alpha_bi_drid = 0.;
-  //SG..
   ppm->c_bi_niv = 0.;
   ppm->n_bi_niv = 0.;
   ppm->alpha_bi_niv = 0.;
   ppm->c_cdi_nid = 0.;
   ppm->n_cdi_nid = 0.;
   ppm->alpha_cdi_nid = 0.;
-  //SG.
   ppm->c_cdi_drid = 0.;
   ppm->n_cdi_drid = 0.;
   ppm->alpha_cdi_drid = 0.;
-  //SG..
   ppm->c_cdi_niv = 0.;
   ppm->n_cdi_niv = 0.;
   ppm->alpha_cdi_niv = 0.;
   ppm->c_nid_niv = 0.;
   ppm->n_nid_niv = 0.;
   ppm->alpha_nid_niv = 0.;
-  //SG.
   ppm->c_drid_niv = 0.;
   ppm->n_drid_niv = 0.;
   ppm->alpha_drid_niv = 0.;
-  //SG..
-  //SG.
   ppm->c_drid_nid = 0.;
   ppm->n_drid_nid = 0.;
   ppm->alpha_drid_nid = 0.;
-  //SG..
   ppm->r = 1.;
   ppm->n_t = -ppm->r/8.*(2.-ppm->r/8.-ppm->n_s);
   ppm->alpha_t = ppm->r/8.*(ppm->r/8.+ppm->n_s-1.);

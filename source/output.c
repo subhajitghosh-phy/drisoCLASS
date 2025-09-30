@@ -394,15 +394,13 @@ int output_cl(
               strcpy(first_line,"[l(l+1)/2pi] C_l's for scalar neutrino density isocurvature (NID) mode");
             }
 
-            //SG.
-
             if ((ppt->has_drid == _TRUE_) &&
                 (index_ic1 == ppt->index_ic_drid) && (index_ic2 == ppt->index_ic_drid)) {
 
               sprintf(file_name,"%s%s",pop->root,"cls_drid.dat");
               strcpy(first_line,"[l(l+1)/2pi] C_l's for scalar dark radiation density isocurvature (DRID) mode");
             }
-            //SG..
+
 
             if ((ppt->has_niv == _TRUE_) &&
                 (index_ic1 == ppt->index_ic_niv) && (index_ic2 == ppt->index_ic_niv)) {
@@ -432,7 +430,6 @@ int output_cl(
               strcpy(first_line,"[l(l+1)/2pi] C_l's for scalar cross ADxNID mode");
             }
 
-            //SG.
 
             if ((ppt->has_ad == _TRUE_) && (ppt->has_drid == _TRUE_) &&
                 (index_ic1 == ppt->index_ic_ad) && (index_ic2 == ppt->index_ic_drid)) {
@@ -440,8 +437,6 @@ int output_cl(
               sprintf(file_name,"%s%s",pop->root,"cls_ad_drid.dat");
               strcpy(first_line,"[l(l+1)/2pi] C_l's for scalar cross ADxDRID mode");
             }
-
-            //SG..
 
             if ((ppt->has_ad == _TRUE_) && (ppt->has_niv == _TRUE_) &&
                 (index_ic1 == ppt->index_ic_ad) && (index_ic2 == ppt->index_ic_niv)) {
@@ -464,7 +459,6 @@ int output_cl(
               strcpy(first_line,"[l(l+1)/2pi] C_l's for scalar cross BIxNID mode");
             }
 
-            //SG.
 
             if ((ppt->has_bi == _TRUE_) && (ppt->has_drid == _TRUE_) &&
                 (index_ic1 == ppt->index_ic_bi) && (index_ic2 == ppt->index_ic_drid)) {
@@ -473,7 +467,6 @@ int output_cl(
               strcpy(first_line,"[l(l+1)/2pi] C_l's for scalar cross BIxDRID mode");
             }
 
-            //SG..
 
             if ((ppt->has_bi == _TRUE_) && (ppt->has_niv == _TRUE_) &&
                 (index_ic1 == ppt->index_ic_bi) && (index_ic2 == ppt->index_ic_niv)) {
@@ -489,16 +482,12 @@ int output_cl(
               strcpy(first_line,"[l(l+1)/2pi] C_l's for scalar cross CDIxNID mode");
             }
 
-            //SG.
-
             if ((ppt->has_cdi == _TRUE_) && (ppt->has_drid == _TRUE_) &&
                 (index_ic1 == ppt->index_ic_cdi) && (index_ic2 == ppt->index_ic_drid)) {
 
               sprintf(file_name,"%s%s",pop->root,"cls_cdi_drid.dat");
               strcpy(first_line,"[l(l+1)/2pi] C_l's for scalar cross CDIxDRID mode");
             }
-
-            //SG..
 
             if ((ppt->has_cdi == _TRUE_) && (ppt->has_niv == _TRUE_) &&
                 (index_ic1 == ppt->index_ic_cdi) && (index_ic2 == ppt->index_ic_niv)) {
@@ -514,8 +503,6 @@ int output_cl(
               strcpy(first_line,"[l(l+1)/2pi] C_l's for scalar cross NIDxNIV mode");
             }
 
-            //SG.
-
             if ((ppt->has_drid == _TRUE_) && (ppt->has_niv == _TRUE_) &&
                 (index_ic1 == ppt->index_ic_drid) && (index_ic2 == ppt->index_ic_niv)) {
 
@@ -523,9 +510,6 @@ int output_cl(
               strcpy(first_line,"[l(l+1)/2pi] C_l's for scalar cross DRIDxNIV mode");
             }
 
-            //SG..
-
-            //SG.
 
             if ((ppt->has_drid == _TRUE_) && (ppt->has_nid == _TRUE_) &&
                 (index_ic1 == ppt->index_ic_drid) && (index_ic2 == ppt->index_ic_nid)) {
@@ -533,8 +517,6 @@ int output_cl(
               sprintf(file_name,"%s%s",pop->root,"cls_drid_nid.dat");
               strcpy(first_line,"[l(l+1)/2pi] C_l's for scalar cross DRIDxNID mode");
             }
-
-            //SG..
 
           }
 
@@ -796,14 +778,11 @@ int output_pk(
               strcpy(first_line,"for neutrino density isocurvature (NID) mode ");
             }
 
-            //SG.
 
             if ((ppt->has_drid == _TRUE_) && (index_ic1 == ppt->index_ic_drid) && (index_ic2 == ppt->index_ic_drid)) {
               sprintf(file_name,"%s%s%s%s",pop->root,redshift_suffix,type_suffix,"_drid.dat");
               strcpy(first_line,"for dark radiation density isocurvature (DRID) mode ");
             }
-
-            //SG..
 
             if ((ppt->has_niv == _TRUE_) && (index_ic1 == ppt->index_ic_niv) && (index_ic2 == ppt->index_ic_niv)) {
               sprintf(file_name,"%s%s%s%s",pop->root,redshift_suffix,type_suffix,"_niv.dat");
@@ -825,14 +804,10 @@ int output_pk(
               strcpy(first_line,"for scalar cross ADxNID mode ");
             }
 
-            //SG.
-
             if ((ppt->has_ad == _TRUE_) && (ppt->has_drid == _TRUE_) && (index_ic1 == ppt->index_ic_ad) && (index_ic2 == ppt->index_ic_drid)) {
               sprintf(file_name,"%s%s%s%s",pop->root,redshift_suffix,type_suffix,"_ad_drid.dat");
               strcpy(first_line,"for scalar cross ADxDRID mode ");
             }
-
-            //SG..
 
             if ((ppt->has_ad == _TRUE_) && (ppt->has_niv == _TRUE_) && (index_ic1 == ppt->index_ic_ad) && (index_ic2 == ppt->index_ic_niv)) {
               sprintf(file_name,"%s%s%s%s",pop->root,redshift_suffix,type_suffix,"_ad_niv.dat");
@@ -849,14 +824,10 @@ int output_pk(
               strcpy(first_line,"for cross BIxNID mode ");
             }
 
-            //SG.
-
             if ((ppt->has_bi == _TRUE_) && (ppt->has_drid == _TRUE_) && (index_ic1 == ppt->index_ic_bi) && (index_ic2 == ppt->index_ic_drid)) {
               sprintf(file_name,"%s%s%s%s",pop->root,redshift_suffix,type_suffix,"_bi_drid.dat");
               strcpy(first_line,"for cross BIxDRID mode ");
             }
-
-            //SG..
 
             if ((ppt->has_bi == _TRUE_) && (ppt->has_niv == _TRUE_) && (index_ic1 == ppt->index_ic_bi) && (index_ic2 == ppt->index_ic_niv)) {
               sprintf(file_name,"%s%s%s%s",pop->root,redshift_suffix,type_suffix,"_bi_niv.dat");
@@ -868,14 +839,12 @@ int output_pk(
               strcpy(first_line,"for cross CDIxNID mode ");
             }
 
-            //SG.
 
             if ((ppt->has_cdi == _TRUE_) && (ppt->has_drid == _TRUE_) && (index_ic1 == ppt->index_ic_cdi) && (index_ic2 == ppt->index_ic_drid)) {
               sprintf(file_name,"%s%s%s%s",pop->root,redshift_suffix,type_suffix,"_cdi_drid.dat");
               strcpy(first_line,"for cross CDIxDRID mode ");
             }
 
-            //SG..
 
             if ((ppt->has_cdi == _TRUE_) && (ppt->has_niv == _TRUE_) && (index_ic1 == ppt->index_ic_cdi) && (index_ic2 == ppt->index_ic_niv)) {
               sprintf(file_name,"%s%s%s%s",pop->root,redshift_suffix,type_suffix,"_cdi_niv.dat");
@@ -887,23 +856,16 @@ int output_pk(
               strcpy(first_line,"for cross NIDxNIV mode ");
             }
 
-            //SG.
-
             if ((ppt->has_drid == _TRUE_) && (ppt->has_niv == _TRUE_) && (index_ic1 == ppt->index_ic_drid) && (index_ic2 == ppt->index_ic_niv)) {
               sprintf(file_name,"%s%s%s%s",pop->root,redshift_suffix,type_suffix,"_drid_niv.dat");
               strcpy(first_line,"for cross DRIDxNIV mode ");
             }
 
-            //SG..
-
-            //SG.
 
             if ((ppt->has_drid == _TRUE_) && (ppt->has_nid == _TRUE_) && (index_ic1 == ppt->index_ic_drid) && (index_ic2 == ppt->index_ic_nid)) {
               sprintf(file_name,"%s%s%s%s",pop->root,redshift_suffix,type_suffix,"_drid_nid.dat");
               strcpy(first_line,"for cross DRIDxNID mode ");
             }
-
-            //SG..
 
             index_ic1_ic2 = index_symmetric_matrix(index_ic1,index_ic2,pnl->ic_size);
 

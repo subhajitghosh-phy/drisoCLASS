@@ -424,14 +424,13 @@ int perturb_output_firstline_and_ic_suffix(
     strcpy(ic_suffix,"nid");
     strcpy(first_line,"for neutrino density isocurvature (NID) mode (normalized to initial entropy=1)");
   }
-  //SG.
+
 
   if ((ppt->has_drid == _TRUE_) && (index_ic == ppt->index_ic_drid)) {
     strcpy(ic_suffix,"drid");
     strcpy(first_line,"for dark radiation density isocurvature (DRID) mode (normalized to initial entropy=1)");
   }
 
-  //SG..
 
   if ((ppt->has_niv == _TRUE_) && (index_ic == ppt->index_ic_niv)) {
     strcpy(ic_suffix,"niv");
@@ -591,7 +590,7 @@ int perturb_init(
 
     class_test((ppt->has_cdi == _TRUE_) || (ppt->has_bi == _TRUE_) || (ppt->has_nid == _TRUE_) || (ppt->has_niv == _TRUE_)|| (ppt->has_drid == _TRUE_),
                ppt->error_message,
-               "Non-adiabatic initial conditions not coded in presence of decaying dark matter");//SG-mod
+               "Non-adiabatic initial conditions not coded in presence of decaying dark matter");
 
   }
 
@@ -1304,7 +1303,7 @@ int perturb_indices_of_perturbs(
       class_define_index(ppt->index_ic_cdi,ppt->has_cdi,index_ic,1);
       class_define_index(ppt->index_ic_nid,ppt->has_nid,index_ic,1);
       class_define_index(ppt->index_ic_niv,ppt->has_niv,index_ic,1);
-      class_define_index(ppt->index_ic_drid,ppt->has_drid,index_ic,1);//SG
+      class_define_index(ppt->index_ic_drid,ppt->has_drid,index_ic,1);
       ppt->ic_size[index_md] = index_ic;
 
       class_test(index_ic == 0,
@@ -5089,11 +5088,11 @@ int perturb_initial_conditions(struct precision * ppr,
   double w_fld,dw_over_da_fld,integral_fld;
   double delta_ur=0.,theta_ur=0.,shear_ur=0.,l3_ur=0.,eta=0.,delta_cdm=0.,alpha, alpha_prime;
   double delta_dr=0;
-  double delta_drad=0.,theta_drad=0.,shear_drad=0.; /*SG: drad - for dark radiation*/
+  double delta_drad=0.,theta_drad=0.,shear_drad=0.; /*drad - for dark radiation*/
   double q,epsilon,k2;
   int index_q,n_ncdm,idx;
-  double rho_r,rho_m,rho_nu,rho_m_over_rho_r,rho_dr; /*YTc: add rho_dr*/
-  double fracnu,fracg,fracb,fraccdm,fracdr,om; /*YTc: add DR ratio*/
+  double rho_r,rho_m,rho_nu,rho_m_over_rho_r,rho_dr; /*add rho_dr*/
+  double fracnu,fracg,fracb,fraccdm,fracdr,om; /*add DR ratio*/
   double ktau_two,ktau_three;
   double f_dr;
 
@@ -5151,19 +5150,17 @@ int perturb_initial_conditions(struct precision * ppr,
     if (pba->has_ur == _TRUE_) {
       rho_r += ppw->pvecback[pba->index_bg_rho_ur];
       rho_nu += ppw->pvecback[pba->index_bg_rho_ur];
-      //rho_dr += ppw->pvecback[pba->index_bg_rho_ur];/*YTc: assign ur to be rho_dr only*/
     }
 
     if (pba->has_idr == _TRUE_) {
       rho_r += ppw->pvecback[pba->index_bg_rho_idr];
-      //rho_nu += ppw->pvecback[pba->index_bg_rho_idr];//SG - idr is NOT treated as nu
-      rho_dr += ppw->pvecback[pba->index_bg_rho_idr];//SG - idr is treated as DR
+      rho_dr += ppw->pvecback[pba->index_bg_rho_idr];//idr is treated as DR
     }
 
     if (pba->has_ncdm == _TRUE_) {
       for(n_ncdm=0; n_ncdm<pba->N_ncdm; n_ncdm++){
         rho_r += ppw->pvecback[pba->index_bg_rho_ncdm1 + n_ncdm];
-        rho_nu += ppw->pvecback[pba->index_bg_rho_ncdm1 + n_ncdm];/*YTc: assign ncdm to be rho_nu only*/
+        rho_nu += ppw->pvecback[pba->index_bg_rho_ncdm1 + n_ncdm];/* assign ncdm to be rho_nu only*/
       }
     }
 
@@ -5171,19 +5168,13 @@ int perturb_initial_conditions(struct precision * ppr,
                ppt->error_message,
                "stop to avoid division by zero");
 
-    /* f_nu = Omega_nu(t_i) / Omega_r(t_i) *//*YTc: add DR ratio*/
+
     fracnu = rho_nu/rho_r;
     fracdr = rho_dr/rho_r;
-    /* f_g = Omega_g(t_i) / Omega_r(t_i) */
     fracg = ppw->pvecback[pba->index_bg_rho_g]/rho_r;
-
-    /* f_b = Omega_b(t_i) / Omega_m(t_i) */
     fracb = ppw->pvecback[pba->index_bg_rho_b]/rho_m;
 
-    /* f_cdm = Omega_cdm(t_i) / Omega_m(t_i) */
     fraccdm = 1.-fracb;
-
-    /* Omega_m(t_i) / Omega_r(t_i) */
     rho_m_over_rho_r = rho_m/rho_r;
 
     /* omega = Omega_m(t_i) a(t_i) H(t_i) / sqrt(Omega_r(t_i))
@@ -5235,7 +5226,7 @@ int perturb_initial_conditions(struct precision * ppr,
       /* photon velocity */
       if (ppt->idr_nature == idr_fluid){
       
-      ppw->pv->y[ppw->pv->index_pt_theta_g] = - k*ktau_three/36. * (1.-3.*(1.-fracnu-fracdr)/20./(1.-fracnu-fracdr)*om*tau)  * ppr->curvature_ini * s2_squared; //SG - cDR change //
+      ppw->pv->y[ppw->pv->index_pt_theta_g] = - k*ktau_three/36. * (1.-3.*(1.-fracnu-fracdr)/20./(1.-fracnu-fracdr)*om*tau)  * ppr->curvature_ini * s2_squared; 
 
         }
         
@@ -5298,7 +5289,7 @@ int perturb_initial_conditions(struct precision * ppr,
            a*a/ppw->pvecback[pba->index_bg_phi_prime_scf]*( - ktau_two/4.*(1.+1./3.)*(4.-3.*1.)/(4.-6.*(1/3.)+3.*1.)*ppw->pvecback[pba->index_bg_rho_scf] - ppw->pvecback[pba->index_bg_dV_scf]*ppw->pv->y[ppw->pv->index_pt_phi_scf])* ppr->curvature_ini * s2_squared; */
       }
 
-      /* all relativistic relics: ur, early ncdm, dr */ /*YTc: for the ad init condition (1)change fracnu -> fracnu + fracdr (2)add delta_nu for _ncdm as the SM neutrinos (3)use _ur for dark radiation*/
+      /* all relativistic relics: ur, early ncdm, dr */ /*for the ad init condition (1)change fracnu -> fracnu + fracdr (2)add delta_nu for _ncdm as the SM neutrinos (3)use _ur for dark radiation*/
 
       if ((pba->has_ur == _TRUE_) || (pba->has_ncdm == _TRUE_) || (pba->has_dr == _TRUE_) || (pba->has_idr == _TRUE_)) {
 
@@ -5306,17 +5297,17 @@ int perturb_initial_conditions(struct precision * ppr,
 
         /* velocity of ultra-relativistic neutrinos/relics */ //TBC
         
-        if (ppt->idr_nature == idr_fluid){ //SG
+        if (ppt->idr_nature == idr_fluid){
         
-        theta_ur = - k*ktau_three/36./(4.*fracnu+15.) * (4.*fracnu+11.+12.*s2_squared-3.*(8.*fracnu*fracnu+50.*fracnu+275.)/20./(2.*fracnu+15.)*tau*om) * ppr->curvature_ini * s2_squared; //SG - cDR change: fracdr -> 0//
+        theta_ur = - k*ktau_three/36./(4.*fracnu+15.) * (4.*fracnu+11.+12.*s2_squared-3.*(8.*fracnu*fracnu+50.*fracnu+275.)/20./(2.*fracnu+15.)*tau*om) * ppr->curvature_ini * s2_squared; // cDR change: fracdr -> 0//
         
-        shear_ur = ktau_two/(45.+12.*fracnu) * (3.*s2_squared-1.) * (1.+(4.*fracnu-5.)/4./(2.*fracnu+15.)*tau*om) * ppr->curvature_ini; //SG - cDR change: fracdr->0//
+        shear_ur = ktau_two/(45.+12.*fracnu) * (3.*s2_squared-1.) * (1.+(4.*fracnu-5.)/4./(2.*fracnu+15.)*tau*om) * ppr->curvature_ini; //cDR change: fracdr->0//
         
-        l3_ur = ktau_three*2./7./(12.*fracnu+45.)* ppr->curvature_ini;//TBC// //SG-TBC//
+        l3_ur = ktau_three*2./7./(12.*fracnu+45.)* ppr->curvature_ini;
         
         }
 
-        if (ppt->idr_nature == idr_free_streaming){ //SG
+        if (ppt->idr_nature == idr_free_streaming){
         
         theta_ur = - k*ktau_three/36./(4.*fracnu+4.*fracdr+15.) * (4.*fracnu+4.*fracdr+11.+12.*s2_squared-3.*(8.*fracnu*fracnu+16.*fracnu*fracdr+8.*fracdr*fracdr+50.*fracnu+50.*fracdr+275.)/20./(2.*fracnu+2.*fracdr+15.)*tau*om) * ppr->curvature_ini * s2_squared;
         
@@ -5326,14 +5317,14 @@ int perturb_initial_conditions(struct precision * ppr,
         
         }
         
-        //SG. AD initial conditions for DR
+        //AD initial conditions for DR
         
         if (ppt->idr_nature == idr_fluid){
         
         delta_drad = delta_ur; 
-        theta_drad = - k*ktau_three/36. * (1.-3./20.*om*tau)  * ppr->curvature_ini * s2_squared; //SG - cDR change: theta_drac = theta_g //
+        theta_drad = - k*ktau_three/36. * (1.-3./20.*om*tau)  * ppr->curvature_ini * s2_squared; //cDR change: theta_drac = theta_g //
 
-        shear_drad = 0; //SG - cDR change//
+        shear_drad = 0; //cDR change//
         }
 
         if (ppt->idr_nature == idr_free_streaming){
@@ -5344,8 +5335,6 @@ int perturb_initial_conditions(struct precision * ppr,
         
         }
 
-        //SG..
-
         if (pba->has_dr == _TRUE_) delta_dr = delta_ur;
       }
 
@@ -5355,7 +5344,7 @@ int perturb_initial_conditions(struct precision * ppr,
       
       if (ppt->idr_nature == idr_fluid){
       
-      eta = ppr->curvature_ini * (1.-ktau_two/12./(15.+4.*(fracnu))*(5.+4.*s2_squared*fracnu - (16.*fracnu*fracnu+280.*fracnu+325)/10./(2.*fracnu+15.)*tau*om)); //SG - cDR change: fracdr->0//
+      eta = ppr->curvature_ini * (1.-ktau_two/12./(15.+4.*(fracnu))*(5.+4.*s2_squared*fracnu - (16.*fracnu*fracnu+280.*fracnu+325)/10./(2.*fracnu+15.)*tau*om)); //cDR change: fracdr->0//
 
         }
         
@@ -5384,7 +5373,7 @@ int perturb_initial_conditions(struct precision * ppr,
 
       /*class_test((pba->has_idr == _TRUE_),
                  ppt->error_message,
-                 "only adiabatic ic in presence of interacting dark radiation");*///SG-mod:Added idr later - CHECK AGAIN FOR CONSISTENCY
+                 "only adiabatic ic in presence of interacting dark radiation");*/
 
       class_test(pba->has_cdm == _FALSE_,
                  ppt->error_message,
@@ -5404,13 +5393,11 @@ int perturb_initial_conditions(struct precision * ppr,
         theta_ur = ppw->pv->y[ppw->pv->index_pt_theta_g];
         shear_ur = -ppr->entropy_ini*fraccdm*ktau_two*tau*om/6./(2.*fracnu+15.);
 
-        //SG. AD initial conditions for DR
+        //AD initial conditions for DR
         
         delta_drad = delta_ur; 
         theta_drad = theta_ur;
         shear_drad = shear_ur;
-
-        //SG..
 
       }
 
@@ -5426,7 +5413,7 @@ int perturb_initial_conditions(struct precision * ppr,
 
       /*class_test((pba->has_idr == _TRUE_),
                  ppt->error_message,
-                 "only adiabatic ic in presence of interacting dark radiation");*///SG-mod:Added idr later - CHECK AGAIN FOR CONSISTENCY
+                 "only adiabatic ic in presence of interacting dark radiation");*/
 
       ppw->pv->y[ppw->pv->index_pt_delta_g] = ppr->entropy_ini*fracb*om*tau*(-2./3.+om*tau/4.);
       ppw->pv->y[ppw->pv->index_pt_theta_g] = -ppr->entropy_ini*fracb*om*ktau_two/12.;
@@ -5446,13 +5433,12 @@ int perturb_initial_conditions(struct precision * ppr,
         theta_ur = ppw->pv->y[ppw->pv->index_pt_theta_g];
         shear_ur = -ppr->entropy_ini*fracb*ktau_two*tau*om/6./(2.*fracnu+15.);
 
-        //SG. Initial conditions for DRad
+        //Initial conditions for DRad
         
         delta_drad = delta_ur; 
         theta_drad = theta_ur;
         shear_drad = shear_ur;
 
-        //SG..
 
       }
 
@@ -5460,7 +5446,7 @@ int perturb_initial_conditions(struct precision * ppr,
 
     }
 
-    /** - --> (b.4.) Neutrino density Isocurvature *//*YTc: change this for the DR-isocurvature case, see Soubhik's note*/
+    /** - --> (b.4.) Neutrino density Isocurvature */
 
     if ((ppt->has_nid == _TRUE_) && (index_ic == ppt->index_ic_nid)) {
 
@@ -5484,31 +5470,29 @@ int perturb_initial_conditions(struct precision * ppr,
 
       }
 
-      delta_ur = ppr->entropy_ini*(1.-ktau_two/6.);   /*YTc: the dominant iso-pertrubation*/
+      delta_ur = ppr->entropy_ini*(1.-ktau_two/6.);   
       theta_ur = ppr->entropy_ini*k*k*tau/4.;
       shear_ur = ppr->entropy_ini*ktau_two*(4.*fracnu+15.-15.*fracdr)/30./(1.-fracdr)/(15.+4.*fracdr+4.*fracnu);
 
       delta_drad = ppr->entropy_ini*fracdr/(1.-fracdr)*(-1.+ktau_two/6.);
       theta_drad = -ppr->entropy_ini*k*k*tau/4.*fracdr/(1.-fracdr);
-      shear_drad = -ppr->entropy_ini*ktau_two*(19.*fracdr)/30./(1.-fracdr)/(15.+4.*fracdr+4.*fracnu);/* (-) sign added in front of shear_nu. *SG*/
+      shear_drad = -ppr->entropy_ini*ktau_two*(19.*fracdr)/30./(1.-fracdr)/(15.+4.*fracdr+4.*fracnu);
 
       eta = ppr->entropy_ini*(fracdr*fracdr+fracdr*fracnu-fracdr)/(1.-fracdr)/(4.*fracdr+4.*fracnu+15.)/6.*ktau_two;
       
     }
 
-    //SG.
-
-    /** - --> (b.5.) Dark radiation density Isocurvature. New module for DR-isocurvature case, see Soubhik's note*/
+    /** - --> (b.5.) Dark radiation density Isocurvature. New module for DR-isocurvature */
 
     if ((ppt->has_drid == _TRUE_) && (index_ic == ppt->index_ic_drid)) {
 
       /*class_test((pba->has_ur == _FALSE_) && (pba->has_ncdm == _FALSE_),
                  ppt->error_message,
-                 "not consistent to ask for NID in absence of ur or ncdm species!");*///SG
+                 "not consistent to ask for NID in absence of ur or ncdm species!");*/
 
       /*class_test((pba->has_idr == _TRUE_),
                  ppt->error_message,
-                 "only adiabatic ic in presence of interacting dark radiation");*///SG
+                 "only adiabatic ic in presence of interacting dark radiation");*/
 
       class_test((pba->has_idr == _FALSE_),
                  ppt->error_message,
@@ -5526,7 +5510,7 @@ int perturb_initial_conditions(struct precision * ppr,
 
       }
 
-      delta_drad = ppr->entropy_ini*(1.-ktau_two/6.);   /*YTc: the dominant iso-pertrubation*/
+      delta_drad = ppr->entropy_ini*(1.-ktau_two/6.);
       theta_drad = ppr->entropy_ini*k*k*tau/4.;
       if (ppt->idr_nature == idr_fluid){
           shear_drad = 0 ;
@@ -5543,15 +5527,15 @@ int perturb_initial_conditions(struct precision * ppr,
       
       if (ppt->idr_nature == idr_fluid){
       
-      shear_ur = -ppr->entropy_ini*ktau_two*(fracdr)/2./(1.-fracdr)/(15.+4.*fracnu);/* (-) sign added in front of shear_nu. *SG*/ /* changed shear_ur from fDR case. SK */
+      shear_ur = -ppr->entropy_ini*ktau_two*(fracdr)/2./(1.-fracdr)/(15.+4.*fracnu);
       
-      eta = ppr->entropy_ini*(fracdr*fracnu)/(1.-fracdr)/(4.*fracnu+15.)/6.*ktau_two; /* changed shear_ur from fDR case. SK */
+      eta = ppr->entropy_ini*(fracdr*fracnu)/(1.-fracdr)/(4.*fracnu+15.)/6.*ktau_two; 
       
       }
       
       if (ppt->idr_nature == idr_free_streaming){
       
-      shear_ur = -ppr->entropy_ini*ktau_two*(19.*fracdr)/30./(1.-fracdr)/(15.+4.*fracdr+4.*fracnu);/* (-) sign added in front of shear_nu. *SG*/
+      shear_ur = -ppr->entropy_ini*ktau_two*(19.*fracdr)/30./(1.-fracdr)/(15.+4.*fracdr+4.*fracnu);
       
       eta = ppr->entropy_ini*(fracdr*fracdr+fracdr*fracnu-fracdr)/(1.-fracdr)/(4.*fracdr+4.*fracnu+15.)/6.*ktau_two;
       
@@ -5561,8 +5545,6 @@ int perturb_initial_conditions(struct precision * ppr,
       
       
     }
-
-    //SG..
 
     /** - --> (b.5.) Neutrino velocity Isocurvature */
 
@@ -5641,9 +5623,9 @@ int perturb_initial_conditions(struct precision * ppr,
 
       // note: if there are no neutrinos, fracnu, delta_ur and theta_ur below will consistently be zero.
 
-      delta_tot = (fracg*ppw->pv->y[ppw->pv->index_pt_delta_g]+fracnu*delta_ur+fracdr*delta_drad + rho_m_over_rho_r*(fracb*ppw->pv->y[ppw->pv->index_pt_delta_b]+fraccdm*delta_cdm))/(1.+rho_m_over_rho_r);//SG-mod: Added contribution of DRad
+      delta_tot = (fracg*ppw->pv->y[ppw->pv->index_pt_delta_g]+fracnu*delta_ur+fracdr*delta_drad + rho_m_over_rho_r*(fracb*ppw->pv->y[ppw->pv->index_pt_delta_b]+fraccdm*delta_cdm))/(1.+rho_m_over_rho_r);
 
-      velocity_tot = ((4./3.)*(fracg*ppw->pv->y[ppw->pv->index_pt_theta_g]+fracnu*theta_ur+fracdr*theta_drad) + rho_m_over_rho_r*fracb*ppw->pv->y[ppw->pv->index_pt_theta_b])/(1.+rho_m_over_rho_r);//SG-mod: Added contribution of DRad
+      velocity_tot = ((4./3.)*(fracg*ppw->pv->y[ppw->pv->index_pt_theta_g]+fracnu*theta_ur+fracdr*theta_drad) + rho_m_over_rho_r*fracb*ppw->pv->y[ppw->pv->index_pt_theta_b])/(1.+rho_m_over_rho_r);
 
       alpha = (eta + 3./2.*a_prime_over_a*a_prime_over_a/k/k/s2_squared*(delta_tot + 3.*a_prime_over_a/k/k*velocity_tot))/a_prime_over_a;
 
@@ -5693,7 +5675,7 @@ int perturb_initial_conditions(struct precision * ppr,
            +ppw->pvecback[pba->index_bg_phi_prime_scf]*alpha_prime);
       }
 
-      if ((pba->has_ur == _TRUE_) || (pba->has_ncdm == _TRUE_) || (pba->has_dr == _TRUE_)) {//SG-mod: Removed idr to a seperate IF
+      if ((pba->has_ur == _TRUE_) || (pba->has_ncdm == _TRUE_) || (pba->has_dr == _TRUE_)) {
 
         delta_ur -= 4.*a_prime_over_a*alpha;
         theta_ur += k*k*alpha;
@@ -5734,7 +5716,7 @@ int perturb_initial_conditions(struct precision * ppr,
       if (ppt->idr_nature == idr_free_streaming){
         if ((pba->has_idm_dr == _FALSE_)||((pba->has_idm_dr == _TRUE_)&&(ppw->approx[ppw->index_ap_tca_idm_dr] == (int)tca_idm_dr_off))){
           ppw->pv->y[ppw->pv->index_pt_shear_idr] = shear_drad;
-          ppw->pv->y[ppw->pv->index_pt_l3_idr] = l3_ur; /*YTc: doesn't change l3_ur since we didn't derive things to this order. it's a tiny correction anyway. cannot turn it to zero, the code will break*/
+          ppw->pv->y[ppw->pv->index_pt_l3_idr] = l3_ur; 
         }
       }
     }
@@ -8528,7 +8510,7 @@ int perturb_derivs(double tau,
 
   double Sinv=0., dmu_idm_dr=0., dmu_idr=0., tca_slip_idm_dr=0.;
   
-  double tau_dot = 0; //SG
+  double tau_dot = 0; 
 
   /** - rename the fields of the input structure (just to avoid heavy notations) */
 
@@ -9043,13 +9025,13 @@ int perturb_derivs(double tau,
           
           if (pba->dr_coupling == decoup) {
           
-          tau_dot = pow(pba->Geff,2)*pow(2,5)*7.4305e-16/pow(a,4); //SG//PD     
+          tau_dot = pow(pba->Geff,2)*pow(2,5)*7.4305e-16/pow(a,4);     
           
           }
           
           else if (pba->dr_coupling == recoup) {
           
-          tau_dot = pba->Geff; //SG//PD     
+          tau_dot = pba->Geff;     
           
           }
             if (tau_dot > 100) tau_dot = 100;
